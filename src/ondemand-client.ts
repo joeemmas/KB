@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { JSONP } from "./jsonp";
 import type {
     IOnDemandGetLeadersResponse,
     IOnDemandGetLeadersOptions,
@@ -69,8 +68,6 @@ import type {
     IOnDemandGetCashFlowResponse,
     IOnDemandGetCmdtyCalendarOptions,
     IOnDemandGetCmdtyCalendarResponse,
-    IOnDemandGetHistoricHighsLowsOptions,
-    IOnDemandGetHistoricHighsLowsResponse,
     IOnDemandGetForexForwardCurvesOptions,
     IOnDemandGetForexForwardCurvesResponse,
     IOnDemandGetCmdtyStatsOptions,
@@ -82,12 +79,11 @@ import type {
     IOnDemandGetDividendDataOptions,
     IOnDemandGetDividendDataResponse,
 } from "./interfaces";
-import { IOnDemandGetEquityOptionsByDateOptions, IOnDemandGetEquityOptionsByDateResponse } from './interfaces.manual';
+import { IOnDemandGetEquityOptionsByDateOptions, IOnDemandGetEquityOptionsByDateResponse, IOnDemandGetHistoricHighsLowsOptions, IOnDemandGetHistoricHighsLowsResponse } from './interfaces.manual';
 
 export interface IOnDemandClientConfig {
     baseUrl: string;
     apiKey: string | null;
-    useJsonP: boolean;
     debug: boolean;
     sandbox: boolean;
 }
@@ -96,6 +92,9 @@ interface IInternalFetchRequestData {
     params?: { key?: string; apikey?: string; } & Record<any, any>;
 }
 
+interface IInternalFetchAuthRequestData extends IInternalFetchRequestData {
+    token: string;
+}
 
 /**
  *
@@ -115,7 +114,6 @@ export class OnDemandClient {
         this.config = {
             baseUrl: 'https://ondemand.websol.barchart.com',
             apiKey: null,
-            useJsonP: true,
             debug: false,
             sandbox: false
         };
@@ -391,11 +389,7 @@ export class OnDemandClient {
     };
 
     format() {
-        if (this.config.useJsonP) {
-            return 'jsonp';
-        } else {
-            return 'json';
-        }
+        return 'json';
     };
 
     _keyFormat() {
@@ -407,51 +401,46 @@ export class OnDemandClient {
     };
 
     _checkParamsAndFetch<T>(requestData: IInternalFetchRequestData, options: any) {
-        requestData.params = Object.assign({}, options);
+        let token: string | null = null;
+        if (options.token) {
+            token = options.token;
+            delete options.token;
+        }
+
+        if (!token) {
+            throw new Error('Token is required for all requests.');
+        }
+
+        const requestDataAuth = {
+            url: requestData.url,
+            token,
+            params: Object.assign({}, options)
+        };
 
         /* attach key to request */
         if (this.config.apiKey) {
-            requestData.params![this._keyFormat()] = this.config.apiKey;
+            requestDataAuth.params![this._keyFormat()] = this.config.apiKey;
         }
 
-        return this._doFetch<T>(requestData);
+     
+        return this._doFetch<T>(requestDataAuth);
     };
 
-    _doFetch<T = any>(requestData: IInternalFetchRequestData) {
+    _doFetch<T = any>(requestData: IInternalFetchAuthRequestData) {
         const url = this._buildUrl(requestData.url, requestData.params as object);
+        const headers = { "Authorization": "Bearer " +  requestData.token };
         return new Promise<T>((resolve, reject) => {
-            if (this.config.useJsonP) {
-
-                if (!this.jsonp) {
-                    this.jsonp = new JSONP();
-                }
-
-                this.jsonp.fetch({
-                    url: url,
-                    success: (data: T) => {
-                        if (this.config.debug) {
-                            console.log('success', data);
-                        }
-                        resolve(data);
-                    },
-                    error: (query: any) => {
-                        console.log('fetch error', query);
-                        reject(query)
+            axios.get(url, { headers})
+                .then((response) => {
+                    if (this.config.debug) {
+                        console.log('success', response);
                     }
+                    resolve(response.data);
+                })
+                .catch((error) => {
+                    console.log('fetch error', error);
+                    reject(error)
                 });
-            } else {
-                axios.get(url)
-                    .then((response) => {
-                        if (this.config.debug) {
-                            console.log('success', response);
-                        }
-                        resolve(response.data);
-                    })
-                    .catch((error) => {
-                        console.log('fetch error', error);
-                        reject(error)
-                    });
-            }
         });
     }
 
@@ -472,11 +461,6 @@ export class OnDemandClient {
 
     setAPIKey(apiKey: string) {
         this.config.apiKey = apiKey;
-        return this;
-    }
-
-    setJsonP(useJsonP: boolean) {
-        this.config.useJsonP = useJsonP;
         return this;
     }
 

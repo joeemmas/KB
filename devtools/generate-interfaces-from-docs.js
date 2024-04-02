@@ -202,6 +202,7 @@ function generateInputTypes(doc, name) {
 
     return `
 export interface IOnDemand${name}Options {
+    token: string;
     ${inputTs.join("\n\t")}
 }`;
 
@@ -280,48 +281,6 @@ export interface IOnDemandResponse {
         message: string;
     };
 }
-
-
-// missing docs
-
-export interface IOnDemandGetHistoricHighsLowsOptions {
-    symbols: string | string[];
-}
-export interface IOnDemandGetHistoricHighsLowsResponse extends IOnDemandResponse {
-    results: {
-        name: string;
-        symbol: string;
-        fiveDayHistory: Array<{ 
-            change: number; 
-            date: string; 
-            high: number; 
-            last: number; 
-            low: number; 
-            open: number; 
-            pctchange: number;
-            volume: number;
-        }>;
-        highsAndLows: Array<{ 
-            dateSince: string;
-            high: number;
-            highDate: string;
-            low: number;
-            lowDate: string;
-            percent: number;
-            period: string;
-        }>;
-        newHighsAndLows: Array<{ 
-            highPercent: number;
-            lowPercent: number;
-            madeLowHigh: number;
-            madeNewHigh: number;
-            period: string;
-        }>;
-    }[];
-}
-
-
-// regular
 
 `;
     fs.writeFileSync(pathToTypesFile, initialTypes, { encoding: "utf-8" });

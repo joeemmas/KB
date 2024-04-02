@@ -5,42 +5,8 @@ export interface IOnDemandResponse {
         message: string;
     };
 }
-export interface IOnDemandGetHistoricHighsLowsOptions {
-    symbols: string | string[];
-}
-export interface IOnDemandGetHistoricHighsLowsResponse extends IOnDemandResponse {
-    results: {
-        name: string;
-        symbol: string;
-        fiveDayHistory: Array<{
-            change: number;
-            date: string;
-            high: number;
-            last: number;
-            low: number;
-            open: number;
-            pctchange: number;
-            volume: number;
-        }>;
-        highsAndLows: Array<{
-            dateSince: string;
-            high: number;
-            highDate: string;
-            low: number;
-            lowDate: string;
-            percent: number;
-            period: string;
-        }>;
-        newHighsAndLows: Array<{
-            highPercent: number;
-            lowPercent: number;
-            madeLowHigh: number;
-            madeNewHigh: number;
-            period: string;
-        }>;
-    }[];
-}
 export interface IOnDemandGetQuoteOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
     only?: string | string[];
@@ -153,6 +119,7 @@ export interface IOnDemandGetQuoteResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetHistoryOptions {
+    token: string;
     symbol: string;
     type: ("ticks" | "minutes" | "nearbyMinutes" | "formTMinutes" | "daily" | "dailyNearest" | "dailyContinue" | "weekly" | "weeklyNearest" | "weeklyContinue" | "monthly" | "monthlyNearest" | "monthlyContinue" | "quarterly" | "quarterlyNearest" | "quarterlyContinue" | "yearly" | "yearlyNearest" | "yearlyContinue");
     startDate?: string;
@@ -188,6 +155,7 @@ export interface IOnDemandGetHistoryResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetClosePriceOptions {
+    token: string;
     symbols: string | string[];
     date?: string;
     splits?: never;
@@ -201,6 +169,7 @@ export interface IOnDemandGetClosePriceResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetFuturesOptionsOptions {
+    token: string;
     root?: string;
     contract?: string;
     symbols?: string | string[];
@@ -248,6 +217,7 @@ export interface IOnDemandGetFuturesOptionsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetSpecialOptionsOptions {
+    token: string;
     root?: string | string[];
     contract?: string;
     type?: string;
@@ -291,6 +261,7 @@ export interface IOnDemandGetSpecialOptionsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetEquityOptionsOptions {
+    token: string;
     underlying_symbols: string | string[];
     type?: string;
     strikePrice?: number;
@@ -342,6 +313,7 @@ export interface IOnDemandGetEquityOptionsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetProfileOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
 }
@@ -388,6 +360,7 @@ export interface IOnDemandGetProfileResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetFinancialHighlightsOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
 }
@@ -424,6 +397,7 @@ export interface IOnDemandGetFinancialHighlightsResponse extends IOnDemandRespon
     }[];
 }
 export interface IOnDemandGetFinancialRatiosOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
 }
@@ -444,6 +418,7 @@ export interface IOnDemandGetFinancialRatiosResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetIncomeStatementsOptions {
+    token: string;
     symbols: string | string[];
     frequency: ("Quarter" | "Annual");
     count?: number;
@@ -472,6 +447,7 @@ export interface IOnDemandGetIncomeStatementsResponse extends IOnDemandResponse 
     }[];
 }
 export interface IOnDemandGetBalanceSheetsOptions {
+    token: string;
     symbols: string | string[];
     frequency: ("Quarter" | "Annual");
     count?: number;
@@ -515,6 +491,7 @@ export interface IOnDemandGetBalanceSheetsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetCompetitorsOptions {
+    token: string;
     symbol: string;
     fields?: string | string[];
     maxRecords?: number;
@@ -532,6 +509,7 @@ export interface IOnDemandGetCompetitorsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetRatingsOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
 }
@@ -578,6 +556,7 @@ export interface IOnDemandGetRatingsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetIndexMembersOptions {
+    token: string;
     symbol: string[];
     fields?: string | string[];
 }
@@ -590,6 +569,7 @@ export interface IOnDemandGetIndexMembersResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetCashFlowOptions {
+    token: string;
     symbols: string | string[];
     reportPeriod?: ("12M" | "3M");
     fields?: string | string[];
@@ -636,6 +616,7 @@ export interface IOnDemandGetCashFlowResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetCorporateActionsOptions {
+    token: string;
     symbols: string | string[];
     startDate?: string;
     endDate?: string;
@@ -651,6 +632,7 @@ export interface IOnDemandGetCorporateActionsResponse extends IOnDemandResponse 
     }[];
 }
 export interface IOnDemandGetEarningsEstimatesOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
 }
@@ -679,6 +661,7 @@ export interface IOnDemandGetEarningsEstimatesResponse extends IOnDemandResponse
     }[];
 }
 export interface IOnDemandGetDividendDataOptions {
+    token: string;
     symbols: string | string[];
 }
 export interface IOnDemandGetDividendDataResponse extends IOnDemandResponse {
@@ -697,6 +680,7 @@ export interface IOnDemandGetDividendDataResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetLeadersOptions {
+    token: string;
     exchanges?: string[];
     assetType: ("STK" | "ETF" | "FUND" | "FUT" | "FOREX");
     type: ("active" | "active_5d" | "active_1m" | "active_3m" | "active_6m" | "active_9m" | "active_12m" | "active_ytd" | "gainers" | "gainers_5d" | "gainers_1m" | "gainers_3m" | "gainers_6m" | "gainers_9m" | "gainers_12m" | "gainers_ytd" | "losers" | "losers_5d" | "losers_1m" | "losers_3m" | "losers_6m" | "losers_9m" | "losers_12m" | "losers_ytd" | "hot" | "hot_daily" | "hot_weekly" | "hot_monthly" | "nothot" | "nothot_daily" | "nothot_weekly" | "nothot_monthly" | "barchart");
@@ -725,6 +709,7 @@ export interface IOnDemandGetLeadersResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetHighsLowsOptions {
+    token: string;
     exchanges?: string[];
     assetType: ("STK" | "ETF" | "FUND" | "FUT" | "FOREX" | "BARCHART");
     type?: ("high" | "low");
@@ -753,6 +738,7 @@ export interface IOnDemandGetHighsLowsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetChartOptions {
+    token: string;
     symbols: string | string[];
     type?: ("BAR" | "LINE" | "CANDLE" | "AREA");
     width?: number;
@@ -770,6 +756,7 @@ export interface IOnDemandGetChartResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetTechnicalsOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
 }
@@ -886,6 +873,7 @@ export interface IOnDemandGetTechnicalsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetSignalOptions {
+    token: string;
     symbols: string | string[];
     fields?: string | string[];
     maxRecords?: number;
@@ -997,6 +985,7 @@ export interface IOnDemandGetSignalResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetMomentumOptions {
+    token: string;
     country?: string;
     exchanges?: string | string[];
 }
@@ -1050,6 +1039,7 @@ export interface IOnDemandGetMomentumResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetETFDetailsOptions {
+    token: string;
     symbols?: string | string[];
     categories?: string | string[];
     subCategories?: string | string[];
@@ -1130,6 +1120,7 @@ export interface IOnDemandGetETFDetailsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetNewsOptions {
+    token: string;
     sources?: string[];
     symbols?: string | string[];
     category?: ("companies" | "politics" | "geography" | "commodities" | "economics" | "stocks" | "futures");
@@ -1178,6 +1169,7 @@ export interface IOnDemandGetNewsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetSECFilingsOptions {
+    token: string;
     symbols: string | string[];
     filingType: ("AllEx" | "All" | "10k" | "10q");
     maxRecords?: number;
@@ -1198,6 +1190,7 @@ export interface IOnDemandGetSECFilingsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetInstrumentDefinitionOptions {
+    token: string;
     symbols?: string | string[];
     exchanges?: string[];
     exchangeMics?: string | string[];
@@ -1226,6 +1219,7 @@ export interface IOnDemandGetInstrumentDefinitionResponse extends IOnDemandRespo
     }[];
 }
 export interface IOnDemandGetFuturesSpecificationsOptions {
+    token: string;
     symbols?: string | string[];
     exchanges?: string | string[];
     futuresCategory?: string | string[];
@@ -1249,6 +1243,7 @@ export interface IOnDemandGetFuturesSpecificationsResponse extends IOnDemandResp
     }[];
 }
 export interface IOnDemandGetFuturesExpirationsOptions {
+    token: string;
     roots?: string | string[];
     contracts?: string | string[];
     fields?: string | string[];
@@ -1264,6 +1259,7 @@ export interface IOnDemandGetFuturesExpirationsResponse extends IOnDemandRespons
     }[];
 }
 export interface IOnDemandGetFuturesOptionsExpirationsOptions {
+    token: string;
     roots?: string | string[];
     contracts?: string | string[];
     symbols?: string | string[];
@@ -1277,6 +1273,7 @@ export interface IOnDemandGetFuturesOptionsExpirationsResponse extends IOnDemand
     }[];
 }
 export interface IOnDemandGetSpecialOptionsClassificationOptions {
+    token: string;
     root?: string | string[];
     category?: string;
 }
@@ -1302,6 +1299,7 @@ export interface IOnDemandGetSpecialOptionsClassificationResponse extends IOnDem
     }[];
 }
 export interface IOnDemandGetForexForwardCurvesOptions {
+    token: string;
     symbols: string | string[];
 }
 export interface IOnDemandGetForexForwardCurvesResponse extends IOnDemandResponse {
@@ -1328,6 +1326,7 @@ export interface IOnDemandGetForexForwardCurvesResponse extends IOnDemandRespons
     }[];
 }
 export interface IOnDemandGetWeatherOptions {
+    token: string;
     weatherType?: ("CC" | "F" | "MAP");
     zipCode?: string;
     fields?: string | string[];
@@ -1376,6 +1375,7 @@ export interface IOnDemandGetWeatherResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetGrainBidsOptions {
+    token: string;
     requestType?: ("commodities" | "locations" | "bids");
     location?: string | string[];
     latitude?: number;
@@ -1461,6 +1461,7 @@ export interface IOnDemandGetGrainBidsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetUSDAGrainPricesOptions {
+    token: string;
     commodityTypes?: ("C" | "CCO" | "CSO" | "WDN" | "HRW" | "HRW11" | "O" | "HRWORD" | "SM" | "S" | "SRW" | "SWW")[];
     bidTypes?: ("E" | "P" | "R" | "T" | "B")[];
 }
@@ -1498,6 +1499,7 @@ export interface IOnDemandGetUSDAGrainPricesResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetCmdtyStatsOptions {
+    token: string;
     symbol: string;
     startDate?: string;
     endDate?: string;
@@ -1530,6 +1532,7 @@ export interface IOnDemandGetCmdtyStatsResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetCmdtyCalendarOptions {
+    token: string;
     startDate: string;
     endDate: string;
     category?: ("All" | "Ag" | "Energy" | "Econ" | "Freight" | "Metals" | "Rates");
@@ -1561,7 +1564,8 @@ export interface IOnDemandGetCmdtyCalendarResponse extends IOnDemandResponse {
     }[];
 }
 export interface IOnDemandGetEquityOptionsExpirationsOptions {
-    symbols?: string | string[];
+    token: string;
+    symbols: string | string[];
     exchange?: string;
     sortDir?: ("ASC" | "DESC");
     fields?: string | string[];

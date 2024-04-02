@@ -1,9 +1,8 @@
-import type { IOnDemandGetLeadersResponse, IOnDemandGetLeadersOptions, IOnDemandGetQuoteOptions, IOnDemandGetQuoteResponse, IOnDemandGetTechnicalsOptions, IOnDemandGetTechnicalsResponse, IOnDemandGetProfileOptions, IOnDemandGetProfileResponse, IOnDemandGetInstrumentDefinitionOptions, IOnDemandGetInstrumentDefinitionResponse, IOnDemandGetFuturesSpecificationsOptions, IOnDemandGetFuturesSpecificationsResponse, IOnDemandGetFuturesExpirationsOptions, IOnDemandGetFuturesExpirationsResponse, IOnDemandGetFuturesOptionsExpirationsOptions, IOnDemandGetFuturesOptionsExpirationsResponse, IOnDemandGetCompetitorsOptions, IOnDemandGetCompetitorsResponse, IOnDemandGetHighsLowsOptions, IOnDemandGetHighsLowsResponse, IOnDemandGetMomentumOptions, IOnDemandGetMomentumResponse, IOnDemandGetSignalOptions, IOnDemandGetSignalResponse, IOnDemandGetRatingsOptions, IOnDemandGetRatingsResponse, IOnDemandGetChartOptions, IOnDemandGetChartResponse, IOnDemandGetHistoryOptions, IOnDemandGetHistoryResponse, IOnDemandGetFuturesOptionsOptions, IOnDemandGetFuturesOptionsResponse, IOnDemandGetEquityOptionsOptions, IOnDemandGetEquityOptionsResponse, IOnDemandGetSpecialOptionsOptions, IOnDemandGetSpecialOptionsResponse, IOnDemandGetSpecialOptionsClassificationOptions, IOnDemandGetSpecialOptionsClassificationResponse, IOnDemandGetWeatherOptions, IOnDemandGetWeatherResponse, IOnDemandGetUSDAGrainPricesOptions, IOnDemandGetUSDAGrainPricesResponse, IOnDemandGetEarningsEstimatesOptions, IOnDemandGetEarningsEstimatesResponse, IOnDemandGetCorporateActionsOptions, IOnDemandGetCorporateActionsResponse, IOnDemandGetIndexMembersOptions, IOnDemandGetIndexMembersResponse, IOnDemandGetFinancialHighlightsOptions, IOnDemandGetFinancialHighlightsResponse, IOnDemandGetIncomeStatementsOptions, IOnDemandGetIncomeStatementsResponse, IOnDemandGetFinancialRatiosOptions, IOnDemandGetFinancialRatiosResponse, IOnDemandGetSECFilingsOptions, IOnDemandGetSECFilingsResponse, IOnDemandGetETFDetailsOptions, IOnDemandGetETFDetailsResponse, IOnDemandGetNewsOptions, IOnDemandGetNewsResponse, IOnDemandGetBalanceSheetsOptions, IOnDemandGetBalanceSheetsResponse, IOnDemandGetClosePriceOptions, IOnDemandGetClosePriceResponse, IOnDemandGetCashFlowOptions, IOnDemandGetCashFlowResponse, IOnDemandGetCmdtyCalendarOptions, IOnDemandGetCmdtyCalendarResponse, IOnDemandGetHistoricHighsLowsOptions, IOnDemandGetHistoricHighsLowsResponse, IOnDemandGetForexForwardCurvesOptions, IOnDemandGetForexForwardCurvesResponse, IOnDemandGetCmdtyStatsOptions, IOnDemandGetCmdtyStatsResponse, IOnDemandGetGrainBidsOptions, IOnDemandGetGrainBidsResponse, IOnDemandGetEquityOptionsExpirationsOptions, IOnDemandGetEquityOptionsExpirationsResponse, IOnDemandGetDividendDataOptions, IOnDemandGetDividendDataResponse } from "./interfaces";
-import { IOnDemandGetEquityOptionsByDateOptions, IOnDemandGetEquityOptionsByDateResponse } from './interfaces.manual';
+import type { IOnDemandGetLeadersResponse, IOnDemandGetLeadersOptions, IOnDemandGetQuoteOptions, IOnDemandGetQuoteResponse, IOnDemandGetTechnicalsOptions, IOnDemandGetTechnicalsResponse, IOnDemandGetProfileOptions, IOnDemandGetProfileResponse, IOnDemandGetInstrumentDefinitionOptions, IOnDemandGetInstrumentDefinitionResponse, IOnDemandGetFuturesSpecificationsOptions, IOnDemandGetFuturesSpecificationsResponse, IOnDemandGetFuturesExpirationsOptions, IOnDemandGetFuturesExpirationsResponse, IOnDemandGetFuturesOptionsExpirationsOptions, IOnDemandGetFuturesOptionsExpirationsResponse, IOnDemandGetCompetitorsOptions, IOnDemandGetCompetitorsResponse, IOnDemandGetHighsLowsOptions, IOnDemandGetHighsLowsResponse, IOnDemandGetMomentumOptions, IOnDemandGetMomentumResponse, IOnDemandGetSignalOptions, IOnDemandGetSignalResponse, IOnDemandGetRatingsOptions, IOnDemandGetRatingsResponse, IOnDemandGetChartOptions, IOnDemandGetChartResponse, IOnDemandGetHistoryOptions, IOnDemandGetHistoryResponse, IOnDemandGetFuturesOptionsOptions, IOnDemandGetFuturesOptionsResponse, IOnDemandGetEquityOptionsOptions, IOnDemandGetEquityOptionsResponse, IOnDemandGetSpecialOptionsOptions, IOnDemandGetSpecialOptionsResponse, IOnDemandGetSpecialOptionsClassificationOptions, IOnDemandGetSpecialOptionsClassificationResponse, IOnDemandGetWeatherOptions, IOnDemandGetWeatherResponse, IOnDemandGetUSDAGrainPricesOptions, IOnDemandGetUSDAGrainPricesResponse, IOnDemandGetEarningsEstimatesOptions, IOnDemandGetEarningsEstimatesResponse, IOnDemandGetCorporateActionsOptions, IOnDemandGetCorporateActionsResponse, IOnDemandGetIndexMembersOptions, IOnDemandGetIndexMembersResponse, IOnDemandGetFinancialHighlightsOptions, IOnDemandGetFinancialHighlightsResponse, IOnDemandGetIncomeStatementsOptions, IOnDemandGetIncomeStatementsResponse, IOnDemandGetFinancialRatiosOptions, IOnDemandGetFinancialRatiosResponse, IOnDemandGetSECFilingsOptions, IOnDemandGetSECFilingsResponse, IOnDemandGetETFDetailsOptions, IOnDemandGetETFDetailsResponse, IOnDemandGetNewsOptions, IOnDemandGetNewsResponse, IOnDemandGetBalanceSheetsOptions, IOnDemandGetBalanceSheetsResponse, IOnDemandGetClosePriceOptions, IOnDemandGetClosePriceResponse, IOnDemandGetCashFlowOptions, IOnDemandGetCashFlowResponse, IOnDemandGetCmdtyCalendarOptions, IOnDemandGetCmdtyCalendarResponse, IOnDemandGetForexForwardCurvesOptions, IOnDemandGetForexForwardCurvesResponse, IOnDemandGetCmdtyStatsOptions, IOnDemandGetCmdtyStatsResponse, IOnDemandGetGrainBidsOptions, IOnDemandGetGrainBidsResponse, IOnDemandGetEquityOptionsExpirationsOptions, IOnDemandGetEquityOptionsExpirationsResponse, IOnDemandGetDividendDataOptions, IOnDemandGetDividendDataResponse } from "./interfaces";
+import { IOnDemandGetEquityOptionsByDateOptions, IOnDemandGetEquityOptionsByDateResponse, IOnDemandGetHistoricHighsLowsOptions, IOnDemandGetHistoricHighsLowsResponse } from './interfaces.manual';
 export interface IOnDemandClientConfig {
     baseUrl: string;
     apiKey: string | null;
-    useJsonP: boolean;
     debug: boolean;
     sandbox: boolean;
 }
@@ -13,6 +12,9 @@ interface IInternalFetchRequestData {
         key?: string;
         apikey?: string;
     } & Record<any, any>;
+}
+interface IInternalFetchAuthRequestData extends IInternalFetchRequestData {
+    token: string;
 }
 /**
  *
@@ -71,13 +73,12 @@ export declare class OnDemandClient {
     get(call: "getCmdtyStats", options: IOnDemandGetCmdtyStatsOptions): Promise<IOnDemandGetCmdtyStatsResponse>;
     get(call: "getGrainBids", options: IOnDemandGetGrainBidsOptions): Promise<IOnDemandGetGrainBidsResponse>;
     get(call: "getEquityOptionsByDate", options: IOnDemandGetEquityOptionsByDateOptions): Promise<IOnDemandGetEquityOptionsByDateResponse>;
-    format(): "json" | "jsonp";
+    format(): string;
     _keyFormat(): "key" | "apikey";
     _checkParamsAndFetch<T>(requestData: IInternalFetchRequestData, options: any): Promise<T>;
-    _doFetch<T = any>(requestData: IInternalFetchRequestData): Promise<T>;
+    _doFetch<T = any>(requestData: IInternalFetchAuthRequestData): Promise<T>;
     _buildUrl(url: string, parameters: Record<string, any>): string;
     setAPIKey(apiKey: string): this;
-    setJsonP(useJsonP: boolean): this;
     setDebug(debug: boolean): this;
     setBaseUrl(base: string): this;
     setSandbox(sandbox: boolean): this;

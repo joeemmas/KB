@@ -998,82 +998,6 @@ var require_axios2 = __commonJS({
 
 // src/ondemand-client.ts
 var import_axios = __toESM(require_axios2());
-
-// src/jsonp.js
-var head;
-var JSONP = class {
-  constructor() {
-  }
-  fetch(options = {}) {
-    let params = {
-      data: options.data || {},
-      error: options.error || void 0,
-      success: options.success || void 0,
-      url: options.url || ""
-    };
-    if (params.url.length === 0) {
-      throw new Error("MissingUrl");
-    }
-    let done = false;
-    let callback = params.data[options.callback_name || "callback"] = "jsonpODJSClient_" + this.randomString(15);
-    window[callback] = (data) => {
-      params.success(data);
-      try {
-        return delete window[callback];
-      } catch (_error) {
-        window[callback] = void 0;
-        return void 0;
-      }
-    };
-    let script = this.createElement("script");
-    script.src = params.url;
-    script.src += params.url.indexOf("?" === -1) ? "&" : "&";
-    script.src += this.objectToUri(params.data);
-    script.async = true;
-    script.onerror = (evt) => {
-      return params.error({
-        url: script.src,
-        event: evt
-      });
-    };
-    script.onload = script.onreadystatechange = () => {
-      if (!done && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete")) {
-        done = true;
-        script.onload = script.onreadystatechange = null;
-        if (script && script.parentNode) {
-          return script.parentNode.removeChild(script);
-        }
-      }
-    };
-    head = head || window.document.getElementsByTagName("head")[0];
-    return head.appendChild(script);
-  }
-  encode(val) {
-    return window.encodeURIComponent(val);
-  }
-  createElement(tag) {
-    return window.document.createElement(tag);
-  }
-  objectToUri(obj) {
-    let data, key, value;
-    data = [];
-    for (key in obj) {
-      value = obj[key];
-      data.push(this.encode(key) + "=" + this.encode(value));
-    }
-    return data.join("&");
-  }
-  randomString(length) {
-    let str;
-    str = "";
-    while (str.length < length) {
-      str += Math.random().toString(36)[2];
-    }
-    return str;
-  }
-};
-
-// src/ondemand-client.ts
 var OnDemandClient = class {
   constructor(builder) {
     __publicField(this, "config");
@@ -1081,7 +1005,6 @@ var OnDemandClient = class {
     this.config = {
       baseUrl: "https://ondemand.websol.barchart.com",
       apiKey: null,
-      useJsonP: true,
       debug: false,
       sandbox: false
     };
@@ -1310,11 +1233,7 @@ var OnDemandClient = class {
     return this._checkParamsAndFetch(requestData, options);
   }
   format() {
-    if (this.config.useJsonP) {
-      return "jsonp";
-    } else {
-      return "json";
-    }
+    return "json";
   }
   _keyFormat() {
     if (this.config.sandbox) {
@@ -1324,43 +1243,37 @@ var OnDemandClient = class {
     }
   }
   _checkParamsAndFetch(requestData, options) {
-    requestData.params = Object.assign({}, options);
-    if (this.config.apiKey) {
-      requestData.params[this._keyFormat()] = this.config.apiKey;
+    let token = null;
+    if (options.token) {
+      token = options.token;
+      delete options.token;
     }
-    return this._doFetch(requestData);
+    if (!token) {
+      throw new Error("Token is required for all requests.");
+    }
+    const requestDataAuth = {
+      url: requestData.url,
+      token,
+      params: Object.assign({}, options)
+    };
+    if (this.config.apiKey) {
+      requestDataAuth.params[this._keyFormat()] = this.config.apiKey;
+    }
+    return this._doFetch(requestDataAuth);
   }
   _doFetch(requestData) {
     const url = this._buildUrl(requestData.url, requestData.params);
+    const headers = { "Authorization": "Bearer " + requestData.token };
     return new Promise((resolve, reject) => {
-      if (this.config.useJsonP) {
-        if (!this.jsonp) {
-          this.jsonp = new JSONP();
+      import_axios.default.get(url, { headers }).then((response) => {
+        if (this.config.debug) {
+          console.log("success", response);
         }
-        this.jsonp.fetch({
-          url,
-          success: (data) => {
-            if (this.config.debug) {
-              console.log("success", data);
-            }
-            resolve(data);
-          },
-          error: (query) => {
-            console.log("fetch error", query);
-            reject(query);
-          }
-        });
-      } else {
-        import_axios.default.get(url).then((response) => {
-          if (this.config.debug) {
-            console.log("success", response);
-          }
-          resolve(response.data);
-        }).catch((error) => {
-          console.log("fetch error", error);
-          reject(error);
-        });
-      }
+        resolve(response.data);
+      }).catch((error) => {
+        console.log("fetch error", error);
+        reject(error);
+      });
     });
   }
   _buildUrl(url, parameters) {
@@ -1379,10 +1292,6 @@ var OnDemandClient = class {
   }
   setAPIKey(apiKey) {
     this.config.apiKey = apiKey;
-    return this;
-  }
-  setJsonP(useJsonP) {
-    this.config.useJsonP = useJsonP;
     return this;
   }
   setDebug(debug) {

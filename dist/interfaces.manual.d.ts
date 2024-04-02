@@ -1,5 +1,6 @@
 import { IOnDemandResponse } from "./interfaces";
 export interface IOnDemandGetEquityOptionsByDateOptions {
+    token: string;
     underlying_symbol: string;
     date?: string;
     fields?: string | string[];
@@ -40,5 +41,41 @@ export interface IOnDemandGetEquityOptionsByDateResponse extends IOnDemandRespon
         volume: number | null;
         openInterest: number | null;
         lastUpdateDate: string | null;
+    }[];
+}
+export interface IOnDemandGetHistoricHighsLowsOptions {
+    token: string;
+    symbols: string | string[];
+}
+export interface IOnDemandGetHistoricHighsLowsResponse extends IOnDemandResponse {
+    results: {
+        name: string;
+        symbol: string;
+        fiveDayHistory: Array<{
+            change: number;
+            date: string;
+            high: number;
+            last: number;
+            low: number;
+            open: number;
+            pctchange: number;
+            volume: number;
+        }>;
+        highsAndLows: Array<{
+            dateSince: string;
+            high: number;
+            highDate: string;
+            low: number;
+            lowDate: string;
+            percent: number;
+            period: string;
+        }>;
+        newHighsAndLows: Array<{
+            highPercent: number;
+            lowPercent: number;
+            madeLowHigh: number;
+            madeNewHigh: number;
+            period: string;
+        }>;
     }[];
 }
